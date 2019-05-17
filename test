@@ -1,0 +1,21 @@
+#!/bin/bash
+set -u -e -o pipefail
+
+MOUNTS=200
+PREFIX=$(pwd)/testdata/
+
+# prepare
+rm -rf $PREFIX
+for d in $(seq $MOUNTS); do
+	mkdir -p $PREFIX/$d
+done
+
+# test
+for f in $(find $PREFIX -mindepth 1 -maxdepth 1 -type d); do
+	./mnt-umnt $f &
+done
+
+wait
+
+# cleanup
+rm -rf $PREFIX
