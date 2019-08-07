@@ -1,8 +1,7 @@
 This repository demonstrates a problem of `seq_file` in the Linux kernel.
 In particular, when many mounts are added and removed in parallel, reading
 `/proc/self/mounts` (or `mountinfo`, or `mountstats`) is unreliable. This
-bug appears to be not filesystem specific, not it is kernel version specific
-(to the best of my knowledge).
+bug appears to be neither filesystem nor kernel version specific.
 
 ## Running
 
