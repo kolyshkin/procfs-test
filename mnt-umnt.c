@@ -25,9 +25,9 @@ int main(int argc, char **argv)
 	/* 1. mount target */
 	r = mount("none", target, "tmpfs", 0, NULL);
 	if (r != 0) {
-		err(2, "mount");
+		err(2, "mount %s", target);
 	}
-	
+
 	/* 2. look it up */
 	fp = setmntent("/proc/self/mounts", "r");
 	if (!fp) {
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
 	/* 3. umount */
 	if (umount(target) != 0) {
-		err(5, "umount");
+		err(5, "umount %s", target);
 	}
 
 	return 0;
