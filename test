@@ -2,6 +2,7 @@
 set -u -e -o pipefail
 
 MOUNTS=200
+ITERATIONS=100
 PREFIX=$(pwd)/testdata/
 
 # prepare
@@ -12,7 +13,7 @@ done
 
 # test
 for f in $(find $PREFIX -mindepth 1 -maxdepth 1 -type d); do
-	./mnt-umnt $f &
+	./mnt-umnt $f $ITERATIONS &
 done
 
 wait
