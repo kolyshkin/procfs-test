@@ -1,7 +1,10 @@
-This repository demonstrates a problem of `seq_file` in the Linux kernel.
+This repository demonstrates a Linux kernel /proc bug.
 In particular, when many mounts are added and removed in parallel, reading
-`/proc/self/mounts` (or `mountinfo`, or `mountstats`) is unreliable. This
-bug appears to be neither filesystem nor kernel version specific.
+`/proc/self/mounts` (or `mountinfo`, or `mountstats`) is unreliable.
+
+The bug existed in the Linux kernel for about 10+ years, and is recently fixed
+in the kernel 5.8 by [commit 9f6c61f96f2d97](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9f6c61f96f2d97cbb5f7fa85607bc398f843ff0f). For older kernels, the only known
+workaround is to re-read the whole file.
 
 ## Running
 
@@ -55,3 +58,4 @@ parallel, and that revealed this very bug.
 ## Links
 
 * https://github.com/moby/moby/pull/39107
+* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=9f6c61f96f2d97cbb5f7fa85607bc398f843ff0f
