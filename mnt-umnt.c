@@ -13,15 +13,20 @@ int main(int argc, char **argv)
 	char buf[4096 + 1024];
 	int r, found=0, lines=0;
 	char *target;
+	int repeat = 1;
 
-	if (argc != 2) {
-		errx(1, "Usage: %s <mountpoint>", argv[0]);
+	if (argc < 2 || argc > 3) {
+		errx(1, "Usage: %s <mountpoint> [iterations]", argv[0]);
 	}
 	target = argv[1];
 	if (target[0] != '/') {
 		errx(1, "%s: absolute path required", argv[0]);
 	}
+	if (argc > 2) {
+		repeat = atoi(argv[2]);
+	}
 
+again:
 	/* 1. mount target */
 	r = mount("none", target, "tmpfs", 0, NULL);
 	if (r != 0) {
@@ -49,6 +54,10 @@ int main(int argc, char **argv)
 	/* 3. umount */
 	if (umount(target) != 0) {
 		err(5, "umount %s", target);
+	}
+
+	if (--repeat > 0) {
+		goto again;
 	}
 
 	return 0;
