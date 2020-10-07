@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 			found++;
 		}
 	}
+	endmntent(fp);
 //	printf("%s: found %d entries for %s (%d lines seen)\n", argv[0], found, target, lines);
 	if (found == 0) {
 		fprintf(stderr, "%s: can't find %s\n", argv[0], target);
