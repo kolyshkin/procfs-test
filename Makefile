@@ -13,5 +13,7 @@ test: $(BIN)
 	sudo chmod +s $@
 
 clean:
+	rm -rf testdata 2>/dev/null || true
+	test -d testdata && find testdata -type d | xargs -r sudo umount || true
 	rm -rf $(BIN) testdata
 .PHONY: clean
